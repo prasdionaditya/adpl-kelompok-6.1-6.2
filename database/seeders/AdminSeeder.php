@@ -52,7 +52,7 @@ class AdminSeeder extends Seeder
         ]);
 
         echo "Admin and sample users created successfully!\n";
-        echo "Admin: admin@umkm.com / password123\n";
+        echo "Admin:a dmin@umkm.com / password123\n";
         echo "UMKM: sari@umkm.com / password123\n";
         echo "Buyer: buyer@test.com / password123\n";
     }

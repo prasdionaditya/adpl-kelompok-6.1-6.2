@@ -3,7 +3,7 @@
 @section('title', 'Dashboard UMKM')
 
 @section('content')
-<div class="container mx-auto p-6">
+<div class="container">
     <h1 class="text-2xl font-bold mb-6">Dashboard UMKM</h1>
 
     @if(session('success'))
