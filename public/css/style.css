@@ -18,6 +18,7 @@ a {
 .container {
 	width: 80%;
 	margin:0 auto;
+    padding-top: 17px;
 }
 .container:after {
 	content: '';
