@@ -3,6 +3,109 @@
 @section('title', 'Moderasi Produk - Admin')
 
 @section('content')
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1e40af;
+        margin: 0;
+        padding: 0;
+        color: #111827;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        background-color: #e0d4f7;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border: 1px solid #ccc;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 28px;
+        color: #1f2937;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    thead {
+        background-color: #e5e7eb;
+        color: #374151;
+        font-weight: 600;
+    }
+
+    th, td {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 14px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background-color: #f3f4f6;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        background-color: #2563eb;
+        border: none;
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        background-color: #1d4ed8;
+    }
+
+    .logout-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #ef4444;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .logout-button:hover {
+        background-color: #dc2626;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #f3f4f6;
+        background-color: #000000;
+        padding: 15px;
+        margin-top: 40px;
+    }
+</style>
+
 <div class="container py-6">
     <h2 class="text-2xl font-bold mb-6 text-center">Moderasi Produk UMKM</h2>
 
@@ -81,5 +184,9 @@
     <div class="mt-5">
         {{ $products->links() }}
     </div>
+</div>
+
+<div class="footer">
+    © 2025 UMKM Lokal Marketplace. All rights reserved.
 </div>
 @endsection
