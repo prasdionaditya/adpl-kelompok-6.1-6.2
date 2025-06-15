@@ -6,6 +6,8 @@
     <title>@yield('title', 'Platform UMKM Lokal')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
     <style>
         .hero-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -62,11 +64,20 @@
                             <a class="nav-link" href="{{ route('register') }}">Daftar</a>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">
-                                {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
-                            </a>
-                        </li>
+                        {{-- Nama pengguna: jika UMKM, arahkan ke public profile --}}
+                        @if(Auth::user()->isUmkm())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('umkm.profile.show', Auth::user()->id) }}">
+                                    {{ Auth::user()->name }} (UMKM)
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">
+                                    {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
+                                </a>
+                            </li>
+                        @endif
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
