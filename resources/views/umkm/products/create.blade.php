@@ -32,14 +32,16 @@
                             <textarea name="description" class="form-control" required>{{ old('description') }}</textarea>
                         </div>
 
-                        <div class="mb-3">
-                            <label>Harga</label>
-                            <input type="number" name="price" class="form-control" value="{{ old('price') }}" required>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Harga</label>
+                                <input type="number" name="price" class="form-control" value="{{ old('price') }}" required>
+                            </div>
 
-                        <div class="mb-3">
-                            <label>Stok</label>
-                            <input type="number" name="stock" class="form-control" value="{{ old('stock') }}" required>
+                            <div class="col-md-6 mb-3">
+                                <label>Stok</label>
+                                <input type="number" name="stock" class="form-control" value="{{ old('stock') }}" required>
+                            </div>
                         </div>
 
                         <div class="mb-3">
