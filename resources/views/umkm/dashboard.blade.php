@@ -50,14 +50,5 @@
             </ul>
         </div>
     </div>
-
-    <!-- Tambahan Kartu dengan Ikon -->
-    <div class="mt-8">
-        <div class="bg-blue-600 text-white rounded-xl p-6 flex flex-col gap-2 shadow-md">
-            <h3 class="text-xl font-semibold"><i class="fas fa-shopping-cart mr-2"></i>Pesanan Saya</h3>
-            <p>Lihat riwayat pembelian</p>
-            <a href="{{ route('orders.index') }}" class="bg-white text-blue-600 px-4 py-2 rounded font-semibold w-max hover:bg-gray-100 transition">Lihat Pesanan</a>
-        </div>
-    </div>
 </div>
 @endsection

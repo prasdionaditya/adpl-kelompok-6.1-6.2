@@ -99,4 +99,12 @@ class UmkmController extends Controller
     return view('umkm.public_profile', compact('user', 'profile'));
 }
 
+public function publicProfile($id)
+{
+    $umkm = User::with('umkmProfile')->findOrFail($id);
+
+    return view('umkm.public_profile', compact('umkm'));
+}
+
+
 }

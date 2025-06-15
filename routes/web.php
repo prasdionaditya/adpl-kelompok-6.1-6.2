@@ -11,6 +11,7 @@ use App\Http\Controllers\UmkmController;
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/kategori/{id}', [ProductController::class, 'byCategory'])->name('products.byCategory');
 
 // Auth routes
 Auth::routes();
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'role:umkm'])->prefix('umkm')->name('umkm.')->group(f
     // Profile
     Route::get('/profile', [UmkmController::class, 'profile'])->name('profile');
     Route::match(['put', 'post'], '/profile', [UmkmController::class, 'updateProfile'])->name('profile.update');
+    
 
     // Product management
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');

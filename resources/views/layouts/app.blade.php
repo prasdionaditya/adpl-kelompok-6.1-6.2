@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Platform UMKM Lokal')</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
     <style>
         .hero-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -25,9 +28,6 @@
             font-weight: bold;
             font-size: 1.5rem;
         }
-        .badge-status {
-            font-size: 0.8rem;
-        }
     </style>
 </head>
 <body>
@@ -37,13 +37,29 @@
             <a class="navbar-brand" href="{{ route('home') }}">
                 <i class="fas fa-store"></i> UMKM Lokal
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    @auth
+                        @if (!Auth::user()->isAdmin())
+                            <!-- Dropdown Kategori (hanya untuk non-admin) -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
+                                    Kategori
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach($navbar_categories as $category)
+                                        <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
+                    @endauth
+
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -52,9 +68,19 @@
                             <a class="nav-link" href="{{ route('register') }}">Daftar</a>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <span class="nav-link disabled">{{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})</span>
-                        </li>
+                        @if(Auth::user()->isUmkm())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('umkm.profile.show', Auth::user()->id) }}">
+                                    {{ Auth::user()->name }} (UMKM)
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link disabled" href="#">
+                                    {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
+                                </a>
+                            </li>
+                        @endif
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
@@ -64,23 +90,17 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('orders.index') }}">Pesanan Saya</a>
                             </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Beranda</a>
-                            </li>
                         @endif
 
-                        @if(Auth::user()->isumkm())
+                        @if(Auth::user()->isUmkm())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('orders.index') }}">Pesanan Saya</a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Beranda</a>
+                                <a class="nav-link" href="{{ route('orders.index') }}">Pesanan</a>
                             </li>
                         @endif
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

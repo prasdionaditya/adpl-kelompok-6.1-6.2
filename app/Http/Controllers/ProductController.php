@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -14,7 +16,6 @@ class ProductController extends Controller
         }
 
         $product->load(['user.umkmProfile']);
-        
         return view('products.show', compact('product'));
     }
 
@@ -26,35 +27,39 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('umkm.products.create');
+        $categories = Category::all();
+        return view('umkm.products.create', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|max:255',
+        'description' => 'required',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+    ]);
 
-        $data = $request->all();
-        $data['user_id'] = auth()->id();
+    $data = $request->all(); // ← Gunakan ini agar semua field ikut, termasuk category_id
+    $data['user_id'] = auth()->id();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
-        }
-
-        Product::create($data);
-
-        return redirect()->route('umkm.products.index')->with('success', 'Produk berhasil ditambahkan dan menunggu persetujuan admin.');
+    if ($request->hasFile('image')) {
+        $data['image'] = $request->file('image')->store('products', 'public');
     }
+
+    Product::create($data);
+
+    return redirect()->route('umkm.products.index')->with('success', 'Produk berhasil ditambahkan dan menunggu persetujuan admin.');
+}
+
 
     public function edit(Product $product)
     {
         $this->authorize('update', $product);
-        return view('umkm.products.edit', compact('product'));
+        $categories = Category::all();
+        return view('umkm.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
@@ -66,6 +71,7 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -78,7 +84,6 @@ class ProductController extends Controller
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
-        // Reset status to pending if product was approved and is being edited
         if ($product->status === 'approved') {
             $data['status'] = 'pending';
         }
@@ -99,5 +104,13 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('umkm.products.index')->with('success', 'Produk berhasil dihapus.');
+    }
+
+    public function byCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        $products = $category->products()->where('status', 'approved')->get();
+
+        return view('products.by_category', compact('products', 'category'));
     }
 }

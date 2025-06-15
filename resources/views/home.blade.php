@@ -29,7 +29,17 @@
 <section class="py-5">
     <div class="container">
         <h2 class="text-center mb-5">Produk Terbaru dari UMKM Lokal</h2>
-        
+
+        <!-- Search Form -->
+        <form method="GET" action="{{ route('home') }}" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Cari nama produk..." value="{{ request('search') }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i> Cari
+                </button>
+            </div>
+        </form>
+
         @if($products->count() > 0)
             <div class="row">
                 @foreach($products as $product)
@@ -60,7 +70,7 @@
             
             <!-- Pagination -->
             <div class="d-flex justify-content-center mt-4">
-                {{ $products->links() }}
+                {{ $products->appends(request()->query())->links() }}
             </div>
         @else
             <div class="text-center py-5">
