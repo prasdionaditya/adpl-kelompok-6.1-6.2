@@ -25,9 +25,6 @@
             font-weight: bold;
             font-size: 1.5rem;
         }
-        .badge-status {
-            font-size: 0.8rem;
-        }
     </style>
 </head>
 <body>
@@ -37,13 +34,26 @@
             <a class="navbar-brand" href="{{ route('home') }}">
                 <i class="fas fa-store"></i> UMKM Lokal
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
+                    <!-- Dropdown Kategori -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
+                            Kategori
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach($navbar_categories as $category)
+                                <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -53,7 +63,9 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <span class="nav-link disabled">{{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})</span>
+                            <a class="nav-link disabled" href="#">
+                                {{ Auth::user()->name }} ({{ ucfirst(Auth::user()->role) }})
+                            </a>
                         </li>
 
                         <li class="nav-item">
@@ -64,23 +76,17 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('orders.index') }}">Pesanan Saya</a>
                             </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Beranda</a>
-                            </li>
                         @endif
 
-                        @if(Auth::user()->isumkm())
+                        @if(Auth::user()->isUmkm())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('orders.index') }}">Pesanan Saya</a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Beranda</a>
+                                <a class="nav-link" href="{{ route('orders.index') }}">Pesanan</a>
                             </li>
                         @endif
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -88,6 +94,7 @@
                             </form>
                         </li>
                     @endguest
+
                 </ul>
             </div>
         </div>

@@ -9,15 +9,18 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'name',
-        'description',
-        'price',
-        'stock',
-        'image',
-        'status',
-        'admin_notes',
-    ];
+    'user_id',
+    'name',
+    'description',
+    'price',
+    'stock',
+    'image',
+    'status',
+    'admin_notes',
+    'category_id', // <- Tambahkan baris ini
+];
+
+    
 
     public function user()
     {
@@ -39,4 +42,10 @@ class Product extends Model
     {
         return $query->where('status', 'pending');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

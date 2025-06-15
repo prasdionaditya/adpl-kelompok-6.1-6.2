@@ -38,6 +38,16 @@
         </div>
 
         <div class="mb-3">
+    <label for="category_id" class="form-label">Kategori</label>
+    <select name="category_id" class="form-select" required>
+        <option value="">-- Pilih Kategori --</option>
+        @foreach($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+</div>
+
+        <div class="mb-3">
             <label>Gambar (opsional)</label>
             <input type="file" name="image" class="form-control">
         </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\UmkmController;
 // Public routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/kategori/{id}', [ProductController::class, 'byCategory'])->name('products.byCategory');
 
 // Auth routes
 Auth::routes();

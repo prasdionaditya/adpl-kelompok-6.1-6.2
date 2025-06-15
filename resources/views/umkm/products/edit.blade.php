@@ -38,6 +38,19 @@
             <input type="number" name="stock" class="form-control" value="{{ $product->stock }}" required>
         </div>
 
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Kategori</label>
+            <select name="category_id" id="category_id" class="form-control" required>
+                <option value="">-- Pilih Kategori --</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ old('category_id', $product->category_id ?? '') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
         @if($product->image)
             <div class="mb-3">
                 <label>Gambar Saat Ini</label><br>
