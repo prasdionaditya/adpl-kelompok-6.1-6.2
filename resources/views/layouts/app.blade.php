@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Platform UMKM Lokal')</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -43,18 +44,21 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-
-                    <!-- Dropdown Kategori -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
-                            Kategori
-                        </a>
-                        <ul class="dropdown-menu">
-                            @foreach($navbar_categories as $category)
-                                <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    @auth
+                        @if (!Auth::user()->isAdmin())
+                            <!-- Dropdown Kategori (hanya untuk non-admin) -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
+                                    Kategori
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach($navbar_categories as $category)
+                                        <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
+                    @endauth
 
                     @guest
                         <li class="nav-item">
@@ -64,7 +68,6 @@
                             <a class="nav-link" href="{{ route('register') }}">Daftar</a>
                         </li>
                     @else
-                        {{-- Nama pengguna: jika UMKM, arahkan ke public profile --}}
                         @if(Auth::user()->isUmkm())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('umkm.profile.show', Auth::user()->id) }}">
@@ -105,7 +108,6 @@
                             </form>
                         </li>
                     @endguest
-
                 </ul>
             </div>
         </div>
