@@ -6,7 +6,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container text-center">
-        <h1 class="display-4 fw-bold mb-3">Platform UMKM Lokal Terpercaya</h1>
+        <h1 class="display-4 fw-bold mb-3">Platform UMKM Bangkit Terpercaya</h1>
         <p class="lead mb-4">Temukan produk berkualitas dari UMKM lokal di sekitar Anda</p>
         @guest
             <a href="{{ route('register') }}" class="btn btn-light btn-lg px-4">

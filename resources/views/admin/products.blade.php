@@ -15,7 +15,7 @@
     .container {
         max-width: 1000px;
         margin: 40px auto;
-        background-color: #e0d4f7;
+        background-color: #1e40af;
         border-radius: 16px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         padding: 30px;
@@ -40,7 +40,7 @@
     }
 
     thead {
-        background-color: #e5e7eb;
+        background-color:rgb(18, 81, 205);
         color: #374151;
         font-weight: 600;
     }
@@ -96,14 +96,6 @@
         background-color: #dc2626;
     }
 
-    .footer {
-        text-align: center;
-        font-size: 12px;
-        color: #f3f4f6;
-        background-color: #000000;
-        padding: 15px;
-        margin-top: 40px;
-    }
 </style>
 
 <div class="container py-6">
@@ -186,7 +178,5 @@
     </div>
 </div>
 
-<div class="footer">
-    © 2025 UMKM Lokal Marketplace. All rights reserved.
-</div>
+
 @endsection
