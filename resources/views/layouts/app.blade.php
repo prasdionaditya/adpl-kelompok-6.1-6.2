@@ -36,7 +36,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="fas fa-store"></i> UMKM Lokal
+                <i class="fas fa-store"></i> UMKM Bangkit
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -45,21 +45,17 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    @auth
-                        @if (!Auth::user()->isAdmin())
-                            <!-- Dropdown Kategori (hanya untuk non-admin) -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
-                                    Kategori
-                                </a>
-                                <ul class="dropdown-menu">
-                                    @foreach($navbar_categories as $category)
-                                        <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @endif
-                    @endauth
+                    <!-- Dropdown Kategori (untuk semua user, termasuk guest) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown">
+                            Kategori
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach($navbar_categories as $category)
+                                <li><a class="dropdown-item" href="{{ route('products.byCategory', $category->id) }}">{{ $category->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
 
                     @guest
                         <li class="nav-item">
@@ -137,7 +133,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
-            <p>&copy; 2024 Platform UMKM Lokal. Mendukung ekonomi lokal Indonesia.</p>
+            <p>&copy; 2024 Platform UMKM Bangkit. Mendukung ekonomi lokal Indonesia.</p>
         </div>
     </footer>
 

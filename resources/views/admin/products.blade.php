@@ -3,6 +3,7 @@
 @section('title', 'Moderasi Produk - Admin')
 
 @section('content')
+
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,7 +16,7 @@
     .container {
         max-width: 1000px;
         margin: 40px auto;
-        background-color: #e0d4f7;
+        background-color: #1e40af;
         border-radius: 16px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         padding: 30px;
@@ -40,7 +41,7 @@
     }
 
     thead {
-        background-color: #e5e7eb;
+        background-color:rgb(18, 81, 205);
         color: #374151;
         font-weight: 600;
     }
@@ -96,97 +97,101 @@
         background-color: #dc2626;
     }
 
-    .footer {
-        text-align: center;
-        font-size: 12px;
-        color: #f3f4f6;
-        background-color: #000000;
-        padding: 15px;
-        margin-top: 40px;
-    }
 </style>
 
 <div class="container py-6">
     <h2 class="text-2xl font-bold mb-6 text-center">Moderasi Produk UMKM</h2>
+=======
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Moderasi Produk UMKM</h2>
+
 
     @if (session('success'))
-        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
             {{ session('success') }}
         </div>
     @endif
 
     <div class="overflow-x-auto">
-        <table class="min-w-full bg-white rounded-lg shadow border text-sm">
-            <thead class="bg-gray-100 border-b text-gray-700">
-                <tr>
-                    <th class="py-3 px-4 text-left">Foto</th>
-                    <th class="py-3 px-4 text-left">Nama Produk</th>
-                    <th class="py-3 px-4 text-left">Toko</th>
-                    <th class="py-3 px-4 text-left">Kategori</th>
-                    <th class="py-3 px-4 text-left">Harga</th>
-                    <th class="py-3 px-4 text-left">Stok</th>
-                    <th class="py-3 px-4 text-left">Deskripsi</th>
-                    <th class="py-3 px-4 text-center">Aksi</th>
+        <table class="min-w-full bg-white shadow-md rounded-lg text-sm">
+            <thead>
+                <tr class="bg-indigo-600 text-white text-xs uppercase tracking-wider">
+                    <th class="px-4 py-3">Foto</th>
+                    <th class="px-4 py-3">Nama Produk</th>
+                    <th class="px-4 py-3">Toko</th>
+                    <th class="px-4 py-3">Kategori</th>
+                    <th class="px-4 py-3">Harga</th>
+                    <th class="px-4 py-3">Stok</th>
+                    <th class="px-4 py-3">Deskripsi</th>
+                    <th class="px-4 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($products as $product)
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="py-3 px-4">
-                        @if ($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="Foto" class="w-20 h-20 object-cover rounded">
-                        @else
-                            <span class="text-muted">Tidak ada</span>
-                        @endif
-                    </td>
-                    <td class="py-3 px-4 font-semibold">{{ $product->name }}</td>
-                    <td class="py-3 px-4">
-                        <div class="font-medium">
-                            {{ $product->user->umkmProfile->store_name ?? $product->user->name }}
-                        </div>
-                        <a href="{{ route('umkm.profile.show', $product->user->id) }}"
-                           class="text-blue-500 hover:underline text-xs">Lihat Detail Toko</a>
-                    </td>
-                    <td class="py-3 px-4">{{ $product->category->name ?? '-' }}</td>
-                    <td class="py-3 px-4">Rp{{ number_format($product->price, 0, ',', '.') }}</td>
-                    <td class="py-3 px-4">{{ $product->stock }}</td>
-                    <td class="py-3 px-4">{{ Str::limit($product->description, 60) }}</td>
-                    <td class="py-3 px-4 text-center space-y-2">
-                        <form action="{{ route('admin.products.approve', $product) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="admin_notes" value="Disetujui oleh admin.">
-                            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded w-full text-sm">
-                                ✅ Setujui
-                            </button>
-                        </form>
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-4 py-3">
+                            @if ($product->image)
+                                <img src="{{ asset('storage/' . $product->image) }}" class="w-20 h-20 object-cover rounded" alt="Foto">
+                            @else
+                                <span class="text-gray-400 italic">Tidak ada</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3 font-semibold text-gray-800">{{ $product->name }}</td>
+                        <td class="px-4 py-3">
+                            <div class="font-medium text-gray-700">
+                                {{ $product->user->umkmProfile->store_name ?? $product->user->name }}
+                            </div>
+                            <a href="{{ route('umkm.profile.show', $product->user->id) }}" class="text-blue-500 hover:underline text-xs">
+                                Lihat Detail Toko
+                            </a>
+                        </td>
+                        <td class="px-4 py-3 text-gray-700">{{ $product->category->name ?? '-' }}</td>
+                        <td class="px-4 py-3 text-gray-700">Rp{{ number_format($product->price, 0, ',', '.') }}</td>
+                        <td class="px-4 py-3 text-gray-700">{{ $product->stock }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ Str::limit($product->description, 60) }}</td>
+                        <td class="px-4 py-3 text-center space-y-2">
+                            <form action="{{ route('admin.products.approve', $product) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="admin_notes" value="Disetujui oleh admin.">
+                                <button class="w-full bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded text-sm">
+                                    ✅ Setujui
+                                </button>
+                            </form>
 
-                        <form action="{{ route('admin.products.reject', $product) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="text" name="admin_notes" placeholder="Alasan tolak"
-                                   class="w-full border px-2 py-1 text-xs rounded mb-1" required>
-                            <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded w-full text-sm">
-                                ❌ Tolak
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                            <form action="{{ route('admin.products.reject', $product) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="text" name="admin_notes" placeholder="Alasan tolak"
+                                    class="w-full border border-gray-300 rounded px-2 py-1 text-xs mb-1 focus:outline-none focus:ring focus:border-blue-300"
+                                    required>
+                                <button class="w-full bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded text-sm">
+                                    ❌ Tolak
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="8" class="py-5 text-center text-gray-500">Tidak ada produk yang menunggu persetujuan.</td>
-                </tr>
+                    <tr>
+                        <td colspan="8" class="text-center py-6 text-gray-500">
+                            Tidak ada produk yang menunggu persetujuan.
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-6">
         {{ $products->links() }}
     </div>
-</div>
 
-<div class="footer">
-    © 2025 UMKM Lokal Marketplace. All rights reserved.
+<<<<<<< HEAD
+
+@endsection
+=======
+    <div class="text-center text-sm text-gray-500 mt-6">
+    </div>
 </div>
 @endsection
+>>>>>>> 46b95209d03b818497b24e2a580db4f30dda1c12
