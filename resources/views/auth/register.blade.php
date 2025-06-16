@@ -15,8 +15,8 @@
                             <div class="text-center p-5">
                                 <h2 class="fw-bold mb-3">UMKM</h2>
                                 <p class="mb-4">Marketplace</p>
-                                <h4 class="mb-4">{{ __('Join Us!') }}</h4>
-                                <p class="mb-4">{{ __('Register now and start selling your UMKM products on a trusted marketplace') }}</p>
+                                <h4 class="mb-4">{{ __('Bergabunglah Sekarang!') }}</h4>
+                                <p class="mb-4">{{ __('Daftar sekarang dan mulai jualan produk UMKM Anda di marketplace terpercaya') }}</p>
                                 <!-- Avatar Icon -->
                                 <div class="mb-4">
                                     <div style="width: 120px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 15px; margin: 0 auto; position: relative;">
