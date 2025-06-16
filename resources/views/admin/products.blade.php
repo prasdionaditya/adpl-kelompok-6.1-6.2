@@ -3,7 +3,7 @@
 @section('title', 'Moderasi Produk - Admin')
 
 @section('content')
-<<<<<<< HEAD
+
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -104,7 +104,7 @@
 =======
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <h2 class="text-2xl font-bold text-gray-800 mb-6">Moderasi Produk UMKM</h2>
->>>>>>> 46b95209d03b818497b24e2a580db4f30dda1c12
+
 
     @if (session('success'))
         <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
